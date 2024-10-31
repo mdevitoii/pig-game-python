@@ -75,7 +75,7 @@ def main():
         # print("Total score for this turn:", takeTurn(amount),"\n")
         # input("Pig: The Dice Game\nPress any key to start.")
         # takeTurnInteractive()
-    #try:    
+    try:    
         regularInstructions = {
             "Welcome to the dice game Pig! Here are the instructions on how to play:\n"
             "1. Each turn, a player rolls a die until the player decides to 'hold.'\n"
@@ -124,9 +124,9 @@ def main():
             if round % 2 == 0:
                 os.system('cls' if os.name == 'nt' else 'clear') # source 1 aided with this line
             round += 1
-    #except: # error checking
-        #print("Something went wrong! Please try again. (Exit code: MAIN)")
-        #input("Press <Enter> to end.")
+    except: # error checking
+        print("Something went wrong! Please try again. (Exit code: MAIN)")
+        input("Press <Enter> to end.")
 
 if __name__ == "__main__":
     main()
