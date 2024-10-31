@@ -9,9 +9,15 @@ import os # I wanted to try clearing the terminal after every few rounds so that
 def roll():
     return randrange(6) + 1
 
-def takeTurnCPU(holdAmount):
+def takeTurnCPU(playerScore,CPUscore):
     rollNumber = 0
     turnScore = 0
+    holdAmount = 21 + round(((abs(playerScore-CPUscore))/8))
+    if playerScore >= 71 or CPUscore >= 71:
+        holdamount = 100
+        print(f"CPU has decided to roll to win.")
+    else:
+        print(f"CPU decided to hold at {holdAmount}.")
 
     while turnScore <= holdAmount:
         rollNumber += 1
@@ -21,10 +27,10 @@ def takeTurnCPU(holdAmount):
             break
         else:
             turnScore += rollAmount
-    time.sleep(0.5)
+    sleep(0.5)
     print(f"CPU scored {turnScore} points after {rollNumber} rolls")
     return turnScore
- # hello! testing github
+
 def takeTurnInteractive(playerScore,CPUscore):
     turnScore = 0
     rollNumber = 1
@@ -33,9 +39,9 @@ def takeTurnInteractive(playerScore,CPUscore):
     while keepPlay == True:
         rollAmount = roll()
         print("\n-- Roll number", rollNumber, "--")
-        time.sleep(0.25)
+        sleep(0.25)
         print("You Rolled:", rollAmount)
-        time.sleep(0.25)
+        sleep(0.25)
         if rollAmount == 1:
             print("Score for this turn set to 0.")
             turnScore = 0
@@ -55,7 +61,7 @@ def takeTurnInteractive(playerScore,CPUscore):
             print("Something went wrong. Please try again! (Exit Code: TAKETURNINTERACTIVE)")
             break
 
-    time.sleep(0.25)
+    sleep(0.25)
     return turnScore
             
         
@@ -69,7 +75,7 @@ def main():
         # print("Total score for this turn:", takeTurn(amount),"\n")
         # input("Pig: The Dice Game\nPress any key to start.")
         # takeTurnInteractive()
-    try:    
+    #try:    
         regularInstructions = {
             "Welcome to the dice game Pig! Here are the instructions on how to play:\n"
             "1. Each turn, a player rolls a die until the player decides to 'hold.'\n"
@@ -77,22 +83,23 @@ def main():
             "3. However, if you roll a 1 on the die, your score for that round becomes 0.\n"
             "4. When you hold, your score for that round is saved and added to your total score across all rounds.\n"
             "5. The first player to reach 100 wins!\n"
+            "Note: In this version, the CPU decides what amount it should hold at based on a calculation of player scores. More detail can be found on my Github page. [https://github.com/mdevitoii/pig-game-python]\n"
         }
         for i in regularInstructions:
             print(i)
 
         round,playerScore,CPUscore,turnScore,play = 1,0,0,0,True # initializing variables
         try: # try to get inputs
-            amount = int(input("What should the CPU's hold amount be? Enter a positive integer: "))      
+            input("Press <Enter> to start the game.") 
             os.system('cls' if os.name == 'nt' else 'clear') # source 1 aided with this line
-            print(f"\nBegin Two-Dice Pig! First player to 100 wins!")
+            print(f"\nBegin One-Die Pig! First player to 100 wins!")
         except: # if someone inputs the wrong thing
             print("Something went wrong! Please try again. (Exit Code: INPUTS)")
             play = False
             input("Press <Enter> to end.")
         while play == True: # main game loop
             print(f"\n------- Round {round}: CPU -------")
-            turnScore = takeTurnCPU(amount)
+            turnScore = takeTurnCPU(playerScore,CPUscore)
             CPUscore += turnScore
             sleep(.25)
             print(f"CPU Total Score: {CPUscore}")
@@ -117,9 +124,9 @@ def main():
             if round % 2 == 0:
                 os.system('cls' if os.name == 'nt' else 'clear') # source 1 aided with this line
             round += 1
-    except: # error checking
-        print("Something went wrong! Please try again. (Exit code: MAIN)")
-        input("Press <Enter> to end.")
+    #except: # error checking
+        #print("Something went wrong! Please try again. (Exit code: MAIN)")
+        #input("Press <Enter> to end.")
 
 if __name__ == "__main__":
     main()
