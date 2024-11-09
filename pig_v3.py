@@ -81,6 +81,12 @@ def main():
             print(f"CPU Total Score: {CPUscore}")
             time.sleep(.25)
             print(f"Player Total Score: {playerScore}")
+            if CPUscore >= 100:
+                input("\nLooks like the CPU won this game! Thank you for playing.\nPress any key to exit.")
+                break
+            elif playerScore >= 100:
+                input("\nLooks like you won this game! Thank you for playing. \nPress any key to exit.")
+                break
             print(f"\n------- Round {round}: Player -------")
             playerScore += takeTurnInteractive(playerScore,CPUscore)
             if CPUscore >= 100:
@@ -89,7 +95,7 @@ def main():
             elif playerScore >= 100:
                 input("\nLooks like you won this game! Thank you for playing. \nPress any key to exit.")
                 break
-            input(f"Press <Enter> to continue to round {round+1}.")z
+            input(f"Press <Enter> to continue to round {round+1}.")
             if round % 3 == 0:
                 os.system('cls' if os.name == 'nt' else 'clear') # this line is taken directly from source 1
             round += 1
